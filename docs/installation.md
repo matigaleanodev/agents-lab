@@ -23,27 +23,32 @@ $labRoot = (Get-Location).ProviderPath
 $labCodexHome = if ($env:CODEX_HOME) { $env:CODEX_HOME } else { Join-Path $env:USERPROFILE '.codex' }
 $labSkillRoot = Join-Path $env:USERPROFILE '.agents/skills'
 $labAgentRoot = Join-Path $labCodexHome 'agents'
-$labNames = @('angular-feature', 'cloud-api', 'api-migration', 'workspace-management', 'github-actions', 'api-contract-testing')
+$labSkills = @(Get-ChildItem -LiteralPath (Join-Path $labRoot '.agents/skills') -Directory -ErrorAction Stop |
+    Where-Object { Test-Path -LiteralPath (Join-Path $_.FullName 'SKILL.md') -PathType Leaf } |
+    Sort-Object Name)
+$labAgents = @(Get-ChildItem -LiteralPath (Join-Path $labRoot '.codex/agents') -Filter '*.toml' -File -ErrorAction Stop |
+    Sort-Object Name)
+if (!$labSkills.Count -or !$labAgents.Count) { throw 'No se encontraron herramientas; revisá la raíz del repo.' }
 
 # Revisá todas las colisiones antes de copiar.
-foreach ($labName in $labNames) {
-    $labTarget = Join-Path $labSkillRoot $labName
+foreach ($labSkill in $labSkills) {
+    $labTarget = Join-Path $labSkillRoot $labSkill.Name
     if (Test-Path -LiteralPath $labTarget) { throw "Ya existe: $labTarget; compará y respaldá antes de actualizar." }
 }
-foreach ($labFile in Get-ChildItem -LiteralPath (Join-Path $labRoot '.codex/agents') -Filter '*.toml') {
+foreach ($labFile in $labAgents) {
     $labTarget = Join-Path $labAgentRoot $labFile.Name
     if (Test-Path -LiteralPath $labTarget) { throw "Ya existe: $labTarget; compará y respaldá antes de actualizar." }
 }
 
-New-Item -ItemType Directory -Path $labSkillRoot,$labAgentRoot -Force -WhatIf
-foreach ($labName in $labNames) {
-    Copy-Item -LiteralPath (Join-Path $labRoot ".agents/skills/$labName") -Destination (Join-Path $labSkillRoot $labName) -Recurse -WhatIf
+New-Item -ItemType Directory -Path $labSkillRoot,$labAgentRoot -Force -WhatIf -ErrorAction Stop
+foreach ($labSkill in $labSkills) {
+    Copy-Item -LiteralPath $labSkill.FullName -Destination (Join-Path $labSkillRoot $labSkill.Name) -Recurse -WhatIf -ErrorAction Stop
 }
-Get-ChildItem -LiteralPath (Join-Path $labRoot '.codex/agents') -Filter '*.toml' |
-    ForEach-Object { Copy-Item -LiteralPath $_.FullName -Destination (Join-Path $labAgentRoot $_.Name) -WhatIf }
+$labAgents |
+    ForEach-Object { Copy-Item -LiteralPath $_.FullName -Destination (Join-Path $labAgentRoot $_.Name) -WhatIf -ErrorAction Stop }
 ```
 
-Con autorización y colisiones resueltas, repetí el bloque sin `-WhatIf`. La simulación muestra destinos; no prueba permisos efectivos ni valida el contenido. Instalá juntas las skills de migración y API.
+Con autorización y colisiones resueltas, repetí el bloque sin `-WhatIf`. La simulación muestra destinos; no prueba permisos efectivos ni valida el contenido. Se copian únicamente carpetas que contienen `SKILL.md` y archivos TOML; no hace falta mantener una lista de nombres. Las comprobaciones de colisión anteceden a toda escritura. Reejecutalas al instalar; no uses `-Force` en las copias para resolver diferencias.
 
 ## Instrucciones globales
 
@@ -55,7 +60,7 @@ No hace falta reemplazar `config.toml`, fijar un modelo o habilitar permisos par
 
 ## Actualizar
 
-Obtené la revisión deseada del repo sin publicar cambios. Revisá el diff antes de sincronizar; la copia instalada puede tener modificaciones propias. Guardá un respaldo de cada ruta que vayas a reemplazar en un directorio privado, conservando la misma estructura, y anotá origen/destino en un registro local de instalación.
+Obtené la revisión deseada del repo sin publicar cambios. Descubrí las fuentes con `$labSkills` y `$labAgents` del bloque anterior; compará contenido y hashes con las copias instaladas. Si coinciden, no hace falta reemplazarlas. Revisá el diff antes de sincronizar; la copia instalada puede tener modificaciones propias. Guardá un respaldo de cada ruta que vayas a reemplazar en un directorio privado, conservando la misma estructura, y anotá origen/destino en un registro local de instalación.
 
 Con autorización para reemplazar, copiá las carpetas de skills completas y los TOML correspondientes. No copies la carpeta `.codex` entera ni el home personal. Para retirar archivos obsoletos, comprobá que pertenecen a la copia administrada y no contienen cambios propios; el reemplazo completo de una carpeta requiere la misma revisión y respaldo.
 

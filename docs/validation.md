@@ -7,10 +7,18 @@ Separá formato, descubrimiento y comportamiento. Una skill válida puede tomar 
 Usá el `quick_validate.py` disponible dentro de la skill oficial `skill-creator` de tu cliente. Elegí un Python que ya tenga sus dependencias; si falta alguna, informalo antes de instalarla. Desde PowerShell, con las rutas reales en `$labPython` y `$labValidator`:
 
 ```powershell
-foreach ($labName in @('angular-feature', 'cloud-api', 'api-migration', 'workspace-management', 'github-actions', 'api-contract-testing')) {
-    & $labPython $labValidator ".agents/skills/$labName"
-    if ($LASTEXITCODE -ne 0) { throw "Skill inválida: $labName" }
+$labRoot = (Get-Location).ProviderPath
+$labSkills = @(Get-ChildItem -LiteralPath (Join-Path $labRoot '.agents/skills') -Directory -ErrorAction Stop |
+    Where-Object { Test-Path -LiteralPath (Join-Path $_.FullName 'SKILL.md') -PathType Leaf } |
+    Sort-Object Name)
+$labAgents = @(Get-ChildItem -LiteralPath (Join-Path $labRoot '.codex/agents') -Filter '*.toml' -File -ErrorAction Stop |
+    Sort-Object Name)
+if (!$labSkills.Count -or !$labAgents.Count) { throw 'No se encontraron herramientas; revisá la raíz del repo.' }
+foreach ($labSkill in $labSkills) {
+    & $labPython $labValidator $labSkill.FullName
+    if ($LASTEXITCODE -ne 0) { throw "Skill inválida: $($labSkill.Name)" }
 }
+# Usá $labSkills para revisar openai.yaml y $labAgents para parsear los TOML.
 ```
 
 Validá además `agents/openai.yaml` con un parser YAML disponible, sintaxis de los TOML con `tomllib` (Python 3.11+) y existencia de enlaces locales. No descargues ni copies validadores al repo por costumbre.
@@ -21,7 +29,7 @@ Antes de publicar, revisá los archivos que Git incluiría y confirmá que `.loc
 
 ## Descubrimiento sin tareas reales
 
-Comprobá `codex --version` y las capacidades de esa instalación. El catálogo debe reconocer las seis skills y los cinco agentes de este repo. Si el presupuesto del catálogo inicial omite entradas, diferenciá esa limitación de un fallo de carga y comprobá el selector o la invocación explícita. Verificá que nombres y rutas correspondan a las fuentes del laboratorio, no a otra copia instalada.
+Comprobá `codex --version` y las capacidades de esa instalación. Contrastá el catálogo con los nombres y rutas descubiertos en `$labSkills` y `$labAgents`; la existencia de archivos no prueba carga efectiva. Si el presupuesto del catálogo inicial omite entradas, diferenciá esa limitación de un fallo de carga y comprobá el selector o la invocación explícita. Verificá que nombres y rutas correspondan a las fuentes del laboratorio, no a otra copia instalada. Si validás Windows contra un checkout WSL, eso acredita el cliente Windows, no un cliente Ubuntu. Si no hay cliente en el host de destino, registrá esa limitación por separado de la copia y sus hashes.
 
 Cuando el cliente exponga `codex debug prompt-input`, podés inspeccionar el contexto construido sin ejecutar una tarea con modelo. Consultá primero `--help`; es una herramienta de diagnóstico dependiente de versión. Guardá cualquier salida solo en `.local/`: podría contener instrucciones privadas del entorno.
 
@@ -47,4 +55,10 @@ En un proyecto descartable y con cambios autorizados, comprobá selección, resu
 | Diseñar estrategia con `test-engineer` por pedido explícito | Casos priorizados y límites; sin editar tests ni código productivo si solo se pidió análisis |
 | Agregar un test de una funcionalidad común | El implementador usa el framework existente, sin delegar automáticamente en `test-engineer` |
 
-Para los roles, probá también una decisión con `architect` y una implementación delimitada con `implementer`; comprobá alcance, resultado y verificaciones. No ejecutes agentes adicionales solo por validar estructura. Las pruebas con modelo se realizan con una sesión autorizada y se reportan por separado de los chequeos estáticos.
+Seleccioná unas pocas pruebas de mayor riesgo; la tabla es un catálogo de casos, no una ejecución obligatoria por herramienta. Para roles delegados, usá solo los autorizados; una lectura de sus instrucciones no es una prueba de comportamiento. Si probás `architect` o `implementer`, comprobá alcance, resultado y verificaciones. No ejecutes agentes adicionales solo por validar estructura. Las pruebas con modelo se realizan con una sesión autorizada y se reportan por separado de los chequeos estáticos.
+
+## Simulación de instalación
+
+Probá el bloque de instalación en una raíz descartable dentro de `.local/`, conservando el home personal. Comprobá que `-WhatIf` no escriba, que copie carpetas completas al quitarlo y que una colisión de skill o agente detenga toda la copia sin sobrescribir. Una carpeta sin `SKILL.md` y un directorio terminado en `.toml` no deben descubrirse. Repetí los casos con rutas que contengan espacios.
+
+Guardá prompts, resultados y procedencia de las pruebas solo en `.local/` o en el destino privado que indiquen las instrucciones administrativas. Registrá por separado formato, descubrimiento y comportamiento, incluidos los casos que no se pudieron ejecutar.
