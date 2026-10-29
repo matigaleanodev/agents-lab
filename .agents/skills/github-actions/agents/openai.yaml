@@ -1,0 +1,4 @@
+interface:
+  display_name: "GitHub Actions"
+  short_description: "Pipelines CI/CD simples y con permisos mínimos"
+  default_prompt: "Usá $github-actions para ajustar este workflow y validar sus condiciones y permisos sin ejecutarlo remotamente."

@@ -22,12 +22,17 @@ Es independiente del Workspace privado: acá se versionan herramientas portables
 | `angular-feature` | Implementar o modificar funcionalidades según la versión real de Angular |
 | `cloud-api` | Desarrollar APIs serverless con TypeScript y AWS CDK v2 |
 | `api-migration` | Migrar APIs a CDK conservando contratos, recuperación y servicio anterior |
+| `workspace-management` | Mantener seguimiento operativo en un workspace privado disponible |
+| `github-actions` | Crear, revisar y diagnosticar pipelines CI/CD |
+| `api-contract-testing` | Verificar contratos HTTP y comparar implementaciones |
 
 | Agente | Uso |
 | --- | --- |
 | `architect` | Analizar decisiones complejas y alternativas |
 | `implementer` | Implementar una tarea ya delimitada |
 | `code-reviewer` | Revisar bugs, regresiones, seguridad y contratos |
+| `security-reviewer` | Revisar riesgos concretos de seguridad en cambios sensibles |
+| `test-engineer` | Diseñar pruebas y evaluar regresiones, cobertura crítica o suites inestables |
 
 Los agentes heredan modelo y permisos del padre. No se ejecutan por tener estos archivos y no se invocan para cada cambio.
 
@@ -39,6 +44,9 @@ Abrí este repositorio como proyecto de Codex. Las skills de otro repo requieren
 Usá $angular-feature para agregar filtros al listado existente, sin cambiar su API.
 Usá $cloud-api para agregar GET /items con las convenciones y permisos del proyecto.
 Usá $api-migration para relevar esta API y preparar la primera fase, sin desplegar.
+Usá $workspace-management para actualizar el roadmap afectado en el workspace disponible.
+Usá $github-actions para revisar los permisos y condiciones de este workflow.
+Usá $api-contract-testing para comparar los errores HTTP de estas dos implementaciones.
 Delegá en code-reviewer la revisión de esta rama contra main; no modifiques código.
 ```
 
