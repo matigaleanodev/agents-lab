@@ -1,0 +1,4 @@
+interface:
+  display_name: "Angular Feature"
+  short_description: "Funcionalidades Angular según el proyecto real"
+  default_prompt: "Usá $angular-feature para implementar este cambio respetando la versión y los patrones del proyecto."

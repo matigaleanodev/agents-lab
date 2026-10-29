@@ -1,0 +1,14 @@
+# Investigación, respaldos y pruebas locales
+.local/
+__pycache__/
+*.pyc
+
+# Configuración privada y secretos
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+auth.json
+.DS_Store
+Thumbs.db

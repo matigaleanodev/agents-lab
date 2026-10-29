@@ -1,0 +1,4 @@
+interface:
+  display_name: "API Migration"
+  short_description: "Migraciones a CDK con contratos y recuperación"
+  default_prompt: "Usá $api-migration para trabajar en la fase solicitada conservando contratos y recuperación."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Cloud API"
+  short_description: "APIs serverless con TypeScript y AWS CDK v2"
+  default_prompt: "Usá $cloud-api para implementar este cambio en la API y validar su infraestructura localmente."
