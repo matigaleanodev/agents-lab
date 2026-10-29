@@ -7,9 +7,10 @@
 - Usá TypeScript estricto; evitá `any` y conversiones inseguras. Tipá límites públicos, aprovechá inferencia interna y usá `readonly` donde corresponda.
 - Mantené responsabilidades claras y nombres técnicos en inglés. Escribí comentarios útiles y descripciones de tests en español; evitá comentarios que repitan el código.
 - Usá el framework de tests existente, con casos de comportamiento, errores y límites relevantes. No ocultes fallos cambiando expectativas ni abuses de mocks.
-- Ejecutá primero verificaciones específicas; ampliá cuando el alcance lo justifique. Indicá qué verificaste y los límites de la evidencia.
+- Ejecutá primero verificaciones específicas; reutilizá evidencia previa aplicable y ampliá cuando cambios, fallos o incertidumbre lo justifiquen. Indicá qué verificaste y los límites de la evidencia.
 - En proyectos del workspace personal, localizá y leé explícitamente su `AGENTS.md` de administración en los directorios padre, incluso si el proyecto tiene su propia raíz Git. Para checkouts externos, usá una ruta de contexto explícita con el acceso permitido; si no está disponible, informalo sin copiar documentación privada. Las reglas administrativas se mantienen allí y las técnicas específicas en cada repositorio.
 - Preservá cambios previos. Usá ramas `feat/` o `fix/`. No hagas commit ni push sin pedido explícito; usá mensajes semánticos en español y estilo nominal.
+- Después de completar un merge autorizado hacia `dev` o `main`, eliminá la rama remota de trabajo o release integrada como parte del mismo flujo, sin pedir otra confirmación. Antes comprobá que no queden cambios ni integraciones requeridas pendientes; conservá las ramas destino y los tags.
 - No despliegues ni ejecutes operaciones destructivas sin autorización. No instales configuración global ni sobrescribas archivos existentes sin autorización.
 - Limitá este entorno a proyectos personales; no copies código, configuración o datos de empleadores. No versiones secretos ni los expongas en logs.
 - Usá skills especializadas cuando correspondan y estén disponibles. Leé solo las referencias necesarias; evitá verificaciones repetidas y análisis completos para cambios triviales.

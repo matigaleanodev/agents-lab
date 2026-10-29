@@ -17,7 +17,7 @@ Relevá contratos observables, incluyendo estados, headers, errores, formatos, p
 
 Proponé destino CDK, servicios necesarios, límites de responsabilidades y orden de fases. Evaluá riesgos, costos y diferencias de plataforma; verificá límites de payload, procesamiento y dependencias nativas antes de prometer equivalencia.
 
-Definí estrategia de paridad, datos e integraciones, criterios de aceptación por fase y recuperación. Separá repositorios cuando el proyecto lo requiera; no lo impongas. Registrá plan y seguimiento en el espacio local ignorado del proyecto.
+Definí estrategia de paridad, datos e integraciones, criterios de aceptación por fase y recuperación. Separá repositorios cuando el proyecto lo requiera; no lo impongas. Localizá primero las instrucciones administrativas y el seguimiento vigente del workspace disponible; usá un espacio local ignorado del proyecto solo si esas reglas lo indican o no existe un workspace asociado. Separá arquitectura implementada, destino decidido e historial reemplazado; una decisión futura no acredita implementación.
 
 ## 3. Implementación
 
@@ -25,7 +25,7 @@ Creá o reutilizá el destino según el alcance autorizado. Configurá TypeScrip
 
 Para implementar la API e infraestructura, consultá [cloud-api](../cloud-api/SKILL.md) cuando esté disponible; comparte los criterios serverless y de validación. Si no está instalada, aplicá la documentación del proyecto y la referencia oficial de CDK; no afirmes haberla ejecutado.
 
-No alteres ni elimines la infraestructura anterior. No actives integraciones con efectos reales solo para completar tests.
+No alteres ni elimines la infraestructura anterior. No actives integraciones con efectos reales solo para completar tests. Si una dependencia necesaria aún no está integrada, conservá un rechazo explícito antes de escribir; no simules éxito con no-ops ni desactives compensación/limpieza para cerrar una fase.
 
 ## 4. Paridad y validación
 
@@ -36,6 +36,8 @@ Validá build, tests y plantilla CDK local con revisión de recursos y permisos.
 ## 5. Preparación del cambio productivo
 
 Documentá como referencia técnica el procedimiento de despliegue, cambio de tráfico, comprobaciones posteriores y rollback. Para datos mutables, contemplá compatibilidad de escrituras, sincronización y reversión: volver el DNS no revierte datos.
+
+Definí un único receptor por operación con efectos; no dupliques escrituras, jobs o envíos entre implementaciones. Capturá el destino y las reglas de ingreso vigentes antes del corte, con disparadores de recuperación y tratamiento de operaciones en vuelo. No reproduzcas solicitudes de resultado incierto sin verificar sus efectos.
 
 Confirmá disponibilidad y recuperación del servicio anterior, criterios para abortar y permisos necesarios. Separá lo preparado de lo ejecutado.
 

@@ -4,7 +4,7 @@ developer_instructions = """
 Respetá las instrucciones del repositorio y el alcance delegado; preservá cambios existentes.
 Usá las skills disponibles que correspondan a la tarea; si falta una, no afirmes haberla usado.
 Implementá el menor cambio completo, con tests de comportamiento proporcionales y sin refactorizaciones ajenas al pedido.
-Conservá contratos públicos salvo autorización. Justificá dependencias nuevas antes de incorporarlas.
+Conservá contratos públicos salvo autorización, incluidos errores y efectos persistentes. Si falta una integración necesaria, preservá el rechazo explícito y la compensación; no sustituyas efectos por éxitos ficticios. Justificá dependencias nuevas antes de incorporarlas.
 Ejecutá verificaciones específicas y ampliá cuando corresponda. Informá cambios, evidencia y límites concretos.
 No hagas commit, push, despliegues ni operaciones destructivas sin autorización explícita aplicable.
 No delegues nuevamente salvo pedido o instrucciones aplicables que soliciten subagentes.

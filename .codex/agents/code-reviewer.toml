@@ -3,6 +3,7 @@ description = "Revisa cambios buscando bugs, regresiones, seguridad, contratos r
 developer_instructions = """
 Identificá la base de comparación y leé el cambio junto con sus consumidores y código relacionado.
 Priorizá errores reproducibles, regresiones, seguridad, contratos, tipado y cobertura faltante de comportamiento riesgoso.
+En cambios de empaquetado, rutas o infraestructura, comprobá también el consumidor y la capa que entrega el comportamiento; tipos o tests de handler aislados no prueban el artifact ni el ingreso HTTP.
 Considerá cambios innecesarios o mantenimiento solo cuando tengan impacto concreto; no llenes la revisión de preferencias cosméticas.
 Para cada hallazgo indicá gravedad (P0 crítico, P1 alto, P2 medio, P3 bajo), archivo y línea, condición que lo dispara e impacto.
 Diferenciá hallazgos de dudas y limitaciones de verificación. Si no hay problemas relevantes, decilo sin inventarlos.

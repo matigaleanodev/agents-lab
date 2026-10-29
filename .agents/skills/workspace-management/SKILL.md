@@ -16,14 +16,14 @@ Leé también el README del workspace y las instrucciones del proyecto. Comprob�
 ## Actualizar lo afectado
 
 1. Buscá documentos del proyecto en las ubicaciones existentes. Según las políticas locales, priorizá `roadmap/` para planificación/progreso, `roadmap/archive/` para planes cerrados, `Docs/operations/` para operación, `Docs/handoffs/` para continuidad y `Docs/project-overviews/` para coordinación. Las instrucciones locales determinan ubicación, formato e idioma.
-2. Leé el estado actual y contrastalo con evidencia de esta tarea. Diferenciá historia de estado vigente; autorizaciones históricas no autorizan acciones nuevas.
+2. Seguí los enlaces del índice y el roadmap vigente hacia decisiones, contexto operativo o handoffs solo cuando ayuden al cambio. Leé el estado actual y contrastalo con evidencia de esta tarea. Diferenciá implementación, destino decidido e historial reemplazado; ante contradicciones, buscá la decisión que sustituye a la anterior y contrastá código/configuración. Si no se puede resolver, registrá la incertidumbre; autorizaciones históricas no autorizan acciones nuevas.
 3. Determiná qué cambió realmente y editá solo los documentos afectados, reutilizando los existentes. Conservá historia y procedencia relevantes; no reorganices directorios ni generes todos los tipos de documento.
 4. Registrá lo necesario para continuar: estado y pendientes de una funcionalidad; etapa, validaciones, riesgos, recuperación y próximos pasos de una migración; versión/commit, ambiente, resultado e incidentes de un despliegue autorizado. Para cerrar sesiones, registrá solo avances o bloqueos significativos.
-5. Revisá el diff y el tracking en la raíz Git dueña de cada archivo. Informá rutas modificadas, evidencia utilizada y pendientes; no dupliques el historial de Git ni registres resultados no confirmados.
+5. Resolvé la raíz Git dueña desde el directorio del archivo, no solo desde el checkout inicial; comprobá tracking e ignores allí y en el workspace. Un archivo ignorado en un proyecto no pasa a ser automáticamente contenido del workspace. Revisá el diff y el tracking en esa raíz. Informá rutas modificadas, evidencia utilizada y pendientes; no dupliques el historial de Git ni registres resultados no confirmados.
 
 ## Límites
 
-El `AGENTS.md` del workspace conserva las políticas administrativas; esta skill define el procedimiento y no lo modifica. No crees estructuras paralelas ni handoffs por cambios triviales.
+El `AGENTS.md` del workspace conserva las políticas administrativas, incluida clasificación pública/privada, idioma y preservación de fuentes; esta skill define el procedimiento y no lo modifica. Si se autoriza trasladar documentos, aplicá esas reglas antes de retirar originales y verificá copia y procedencia. No crees estructuras paralelas ni handoffs por cambios triviales.
 
 Mantené la documentación privada en el workspace, fuera de Agent Lab y de repositorios públicos. No incorpores código fuente completo de proyectos, secretos, credenciales, `.env` sensibles ni información de empleadores. No leas valores secretos para documentar una operación.
 

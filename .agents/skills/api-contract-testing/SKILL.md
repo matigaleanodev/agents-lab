@@ -17,7 +17,7 @@ Definí casos concretos por riesgo: éxito, errores esperados, entradas inválid
 
 Reutilizá el framework instalado, sea Vitest u otro; no agregues dependencias por costumbre. Implementá tests solo si la tarea autoriza ediciones. Usá fixtures representativas y datos locales descartables; mantené independencia entre casos cuando corresponda. Sustituí integraciones externas en su límite sin mockear la respuesta HTTP que se intenta verificar.
 
-Comprobá valores y estructura relevantes, headers y serialización, no solo el status o snapshots sin criterio. No cambies el contrato ni código productivo para hacer pasar tests sin autorización.
+Comprobá valores y estructura relevantes, headers y serialización, no solo el status o snapshots sin criterio. Según el contrato, incluí coerciones/defaults, parámetros repetidos/desconocidos, `null` frente a ausencia, body en DELETE, HEAD sin body, preflight y base64. Verificá que respuestas públicas omitan campos internos y que rechazos de autorización o falta de dependencias obligatorias no produzcan efectos prohibidos. Cuando el contrato exija compensación, comprobá su resultado; no alcanza con recibir un error. No cambies el contrato ni código productivo para hacer pasar tests sin autorización.
 
 ## Comparar implementaciones
 
