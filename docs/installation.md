@@ -23,7 +23,7 @@ $labRoot = (Get-Location).ProviderPath
 $labCodexHome = if ($env:CODEX_HOME) { $env:CODEX_HOME } else { Join-Path $env:USERPROFILE '.codex' }
 $labSkillRoot = Join-Path $env:USERPROFILE '.agents/skills'
 $labAgentRoot = Join-Path $labCodexHome 'agents'
-$labNames = @('angular-feature', 'cloud-api', 'api-migration')
+$labNames = @('angular-feature', 'cloud-api', 'api-migration', 'workspace-management', 'github-actions', 'api-contract-testing')
 
 # Revisá todas las colisiones antes de copiar.
 foreach ($labName in $labNames) {
@@ -67,7 +67,7 @@ Reiniciá el cliente si no ve los cambios. Abrí un proyecto de prueba, comprob�
 
 Para restaurar, compará con el respaldo, preservá cambios posteriores y recuperá solo las rutas de esa instalación. Si un archivo no existía antes, retiralo únicamente si sigue siendo la copia administrada.
 
-Para desinstalar, revisá y retirá solo las tres carpetas de skills y los tres TOML registrados. Restaurá el global desde respaldo o quitá únicamente el bloque integrado, conservando el resto. Usá primero `Remove-Item -LiteralPath RUTA -Recurse -WhatIf` sobre cada ruta exacta; no borres raíces completas como `~/.agents` o `~/.codex`. El borrado real requiere autorización aplicable. No elimines autenticación, cachés ni sesiones.
+Para desinstalar, revisá y retirá solo las carpetas de skills y los TOML registrados en esa instalación. Restaurá el global desde respaldo o quitá únicamente el bloque integrado, conservando el resto. Usá primero `Remove-Item -LiteralPath RUTA -Recurse -WhatIf` sobre cada ruta exacta; no borres raíces completas como `~/.agents` o `~/.codex`. El borrado real requiere autorización aplicable. No elimines autenticación, cachés ni sesiones.
 
 ## Herramientas oficiales
 

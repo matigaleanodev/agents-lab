@@ -1,0 +1,4 @@
+interface:
+  display_name: "Workspace Management"
+  short_description: "Documentación operativa en el workspace privado"
+  default_prompt: "Usá $workspace-management para actualizar el seguimiento afectado de este proyecto en el workspace disponible."
